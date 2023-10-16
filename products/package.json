@@ -10,5 +10,16 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
-  }
+  },
+  "name": "products",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

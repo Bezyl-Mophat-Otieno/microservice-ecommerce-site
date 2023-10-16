@@ -1,0 +1,5 @@
+CREATE OR ALTER PROCEDURE fetchOrders
+
+AS BEGIN
+ SELECT * FROM orders
+END ;
