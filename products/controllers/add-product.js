@@ -29,6 +29,7 @@ const addProduct = async (req, res) => {
         msg: "Something went wrong, Product was not added successfully",
       });
   } catch (error) {
+    
     return res.status(500).json({ message: error.message });
   }
 };

@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5003;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use("/api/product/", productRouter);
+app.use("/products", productRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send("Hello from the products service");

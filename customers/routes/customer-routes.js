@@ -7,6 +7,6 @@ const customerRouter = new Router();
 
 customerRouter.post("/register", regsisterCustomer);
 customerRouter.post("/login", loginCustomer);
-customerRouter.get("/customers", fetchCustomers);
+customerRouter.get("/", fetchCustomers);
 
 export default customerRouter;

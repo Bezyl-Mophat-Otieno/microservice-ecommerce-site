@@ -10,6 +10,7 @@ const fetchCustomers = async (req, res) => {
       return res.status(404).json({ msg: "No Customer found" });
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ msg: "Something went wrong" });
   }
 };
