@@ -27,6 +27,14 @@ app.use(
       return "/products/fetch";
     },
     userResDecorator: async (proxyRes, proxyResData, userReq, userRes) => {
+      redisClient.publish(
+        "gateway",
+        "Hello from the gateway pathway1,",
+        (err, reply) => {
+          if (err) return console.log(err);
+          console.log(reply);
+        }
+      );
       // Add caching logic here
       let isCached = false;
       let products = [];
@@ -35,13 +43,18 @@ app.use(
 
       if (!isCached) {
         products = await redisClient.get("products");
-        JSON.stringify(products)
+        JSON.stringify(products);
+        redisClient.publish(
+          "message",
+          "You are getting this list of products from the Cache"
+        );
         return userRes.status(200).json(products);
       } else {
         try {
           products = JSON.parse(proxyResData.toString("utf8"));
+
           console.log(products);
-          redisClient.set("products", JSON.stringify(products));
+          await redisClient.set("products", products);
           isCached = true;
           console.log("Products from database");
           userRes.status(200).json(products);
@@ -55,6 +68,18 @@ app.use(
 );
 // cache middleware
 
+// Register Events from other services here
+
+// const publishMessage = (channel, message) => {
+//   redisClient.publish(channel, message);
+// };
+
+// const subscribeToChannel = (channel) => {
+//   redisClient.subscribe(channel);
+//   redisClient.on("message", (channel, message) => {
+//     console.log(`Received the following message from ${channel}: ${message}`);
+//   });
+// };
 app.use("/", (req, res) => {
   res.status(200).send("Hello from the gateway service");
 });
